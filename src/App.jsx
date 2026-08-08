@@ -8,7 +8,7 @@ import Contact from "./pages/Contact";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/CanaEventPlanners">
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
