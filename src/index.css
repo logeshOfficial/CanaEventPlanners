@@ -1,0 +1,153 @@
+/**
+ * ─────────────────────────────────────────────────────────────────
+ *  Global styles — Tailwind v4 with custom design tokens.
+ *  Font imports MUST come before @import "tailwindcss".
+ * ─────────────────────────────────────────────────────────────────
+ */
+
+/* ── Google Fonts ────────────────────────────────────────────
+   Montserrat  — headings  (geometric, professional, clean)
+   Inter       — body      (purpose-built for screen readability)
+   Allura      — decorative ampersand (elegant script)
+   Single request, display=swap for fast rendering
+   ──────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Inter:wght@400;500;600&family=Allura&display=swap');
+
+@import "tailwindcss";
+
+/* ── Design Tokens ───────────────────────────────────────────── */
+@theme {
+
+  /* Forest green palette */
+  --color-forest-50:  #e8f0ee;
+  --color-forest-100: #c5d8d1;
+  --color-forest-200: #9fbfb5;
+  --color-forest-300: #79a699;
+  --color-forest-400: #5c9388;
+  --color-forest-500: #3f8070;
+  --color-forest-600: #2d6b5c;
+  --color-forest-700: #1d5245;
+  --color-forest-800: #0f3d2f;
+  --color-forest-900: #0a2d22;
+  --color-forest-950: #061a14;
+
+  /* Gold palette */
+  --color-gold-50:  #fdf8ec;
+  --color-gold-100: #f9edd0;
+  --color-gold-200: #f4d99d;
+  --color-gold-300: #efc46a;
+  --color-gold-400: #e8b048;
+  --color-gold-500: #c9943a;
+  --color-gold-600: #a87930;
+  --color-gold-700: #865e26;
+  --color-gold-800: #64461c;
+  --color-gold-900: #422e12;
+
+  /* Warm ivory backgrounds */
+  --color-ivory-50:  #fdfcf8;
+  --color-ivory-100: #f9f6ee;
+  --color-ivory-200: #f2ead9;
+  --color-ivory-300: #e8dcc2;
+  --color-ivory-400: #d8c89a;
+
+  /* ── Typography ──────────────────────────────────────────
+     font-display / font-heading  →  Montserrat (headings)
+     font-body                    →  Inter (all body text)
+  ───────────────────────────────────────────────────────── */
+  --font-display: "Montserrat", system-ui, sans-serif;
+  --font-heading: "Montserrat", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-card:       0 2px 16px 0 rgba(10,45,34,0.10);
+  --shadow-card-hover: 0 8px 32px 0 rgba(10,45,34,0.18);
+  --shadow-gold:       0 4px 24px 0 rgba(201,148,58,0.30);
+}
+
+/* ── Base resets ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+/* ── Body — base type scale ──────────────────────────────────
+   16px on mobile  →  17px on tablet  →  18px on desktop
+   Using clamp keeps it fluid and never too big or too small.
+   ──────────────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.125rem); /* 16px → 18px */
+  line-height: 1.75;
+  background-color: var(--color-ivory-50);
+  color: #1c1c1c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Uniform body-text elements ──────────────────────────────
+   All text-bearing elements inherit the body size exactly.
+   No Tailwind utility on any individual element can make
+   paragraph / label / input text smaller than body size.
+   ──────────────────────────────────────────────────────────── */
+p, li, span, label, input, textarea, select, td, th {
+  font-size: 1rem;       /* always = body font-size via inheritance */
+  font-family: inherit;
+  line-height: inherit;
+}
+
+/* ── Headings — Montserrat, fluid sizing ─────────────────────
+   Sizes scale smoothly between mobile and desktop.
+   font-weight 700 on h1/h2 for impact, 600 on smaller heads.
+   ──────────────────────────────────────────────────────────── */
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);     /* matches About page heading */
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem); /* 24px → 36px */
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);  /* 19px → 24px */
+  font-weight: 600;
+  line-height: 1.25;
+}
+h4, h5 {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.2rem);      /* 16px → 19px */
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Buttons inherit heading font for consistency with nav/CTAs */
+button, [role="button"] {
+  font-family: var(--font-heading);
+}
+
+/* ── Accordion (service options) ─────────────────────────────── */
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
+              opacity    0.28s ease;
+}
+
+/* ── Logo shimmer ────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { opacity: 0.75; }
+  50%  { opacity: 1;    }
+  100% { opacity: 0.75; }
+}
+.shimmer { animation: shimmer 3s ease-in-out infinite; }
+
+/* ── Focus ring ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

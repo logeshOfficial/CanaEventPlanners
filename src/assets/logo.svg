@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 340" role="img" aria-label="Cana Dream Events logo">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#F0C96A"/>
+      <stop offset="50%"  stop-color="#C9943A"/>
+      <stop offset="100%" stop-color="#A07228"/>
+    </linearGradient>
+    <linearGradient id="goldHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#F5D98A"/>
+      <stop offset="100%" stop-color="#B8832A"/>
+    </linearGradient>
+    <linearGradient id="shieldFill" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%"   stop-color="#0D3B2A"/>
+      <stop offset="100%" stop-color="#0A2D20"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ── CROWN (sits above shield, top of viewBox) ──────── -->
+  <g transform="translate(160, 2)">
+    <!-- Crown base band -->
+    <path d="M-62 90 Q-60 84 -54 82 L54 82 Q60 84 62 90 L56 110 L-56 110 Z"
+          fill="url(#goldGrad)" stroke="#A07228" stroke-width="1"/>
+    <!-- Scallop bottom of band -->
+    <path d="M-56 110 Q-48 104 -40 110 Q-32 116 -24 110 Q-16 104 -8 110
+             Q0 116 8 110 Q16 104 24 110 Q32 116 40 110 Q48 104 56 110"
+          fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Left outer spike -->
+    <path d="M-62 90 L-80 28 L-54 66 L-46 42 L-34 70"
+          fill="url(#goldGrad)" stroke="#A07228" stroke-width="1" stroke-linejoin="round"/>
+    <!-- Left inner spike -->
+    <path d="M-34 70 L-20 28 L-6 66"
+          fill="url(#goldGrad)" stroke="#A07228" stroke-width="1" stroke-linejoin="round"/>
+    <!-- Centre spike -->
+    <path d="M-6 66 L0 22 L6 66"
+          fill="url(#goldGrad)" stroke="#A07228" stroke-width="1" stroke-linejoin="round"/>
+    <!-- Right inner spike -->
+    <path d="M6 66 L20 28 L34 70"
+          fill="url(#goldGrad)" stroke="#A07228" stroke-width="1" stroke-linejoin="round"/>
+    <!-- Right outer spike -->
+    <path d="M34 70 L46 42 L54 66 L80 28 L62 90"
+          fill="url(#goldGrad)" stroke="#A07228" stroke-width="1" stroke-linejoin="round"/>
+    <!-- Fleur-de-lis on centre tip -->
+    <g transform="translate(0,12)">
+      <ellipse cx="0" cy="0" rx="4" ry="10" fill="url(#goldHighlight)"/>
+      <path d="M0,-4 Q-10,-2 -8,6 Q-4,2 0,0" fill="url(#goldHighlight)"/>
+      <path d="M0,-4 Q10,-2 8,6 Q4,2 0,0"    fill="url(#goldHighlight)"/>
+      <rect x="-1.5" y="8" width="3" height="5" rx="1" fill="url(#goldGrad)"/>
+    </g>
+    <!-- Gems on band -->
+    <ellipse cx="-40" cy="98" rx="5" ry="4" fill="#F5D98A" stroke="#A07228" stroke-width="0.8"/>
+    <ellipse cx="0"   cy="98" rx="5" ry="4" fill="#F5D98A" stroke="#A07228" stroke-width="0.8"/>
+    <ellipse cx="40"  cy="98" rx="5" ry="4" fill="#F5D98A" stroke="#A07228" stroke-width="0.8"/>
+  </g>
+
+  <!-- ── SHIELD (starts right below crown band) ─────────── -->
+  <!-- Shield outer gold border -->
+  <path d="M88 110 L88 202 Q88 244 160 272 Q232 244 232 202 L232 110 Z"
+        fill="url(#goldGrad)" stroke="#A07228" stroke-width="1.5"/>
+  <!-- Shield inner dark body -->
+  <path d="M95 116 L95 200 Q95 236 160 262 Q225 236 225 200 L225 116 Z"
+        fill="url(#shieldFill)"/>
+  <!-- Inner gold rim highlight -->
+  <path d="M101 122 L101 198 Q101 228 160 252 Q219 228 219 198 L219 122 Z"
+        fill="none" stroke="url(#goldHighlight)" stroke-width="1.2" opacity="0.55"/>
+
+  <!-- ── CDE — perfectly centred in shield body ─────────── -->
+  <!--
+    Shield inner body: top=116, bottom tip ~262, vertical centre = (116+210)/2 ≈ 191
+    Horizontally centred at x=160
+  -->
+  <text
+    x="160"
+    y="191"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="'Montserrat', 'Arial', sans-serif"
+    font-size="52"
+    font-weight="800"
+    letter-spacing="5"
+    fill="url(#goldGrad)"
+  >CDE</text>
+
+  <!-- ── WORDMARK ────────────────────────────────────────── -->
+  <!-- "CANA DREAM EVENTS" — main brand name -->
+  <text
+    x="160" y="296"
+    text-anchor="middle"
+    font-family="'Montserrat', 'Arial', sans-serif"
+    font-size="20"
+    font-weight="700"
+    letter-spacing="4"
+    fill="url(#goldGrad)"
+  >CANA DREAM EVENTS</text>
+
+  <!-- "THE EVENT PLANNERS" — bolder subtitle -->
+  <text
+    x="160" y="315"
+    text-anchor="middle"
+    font-family="'Montserrat', 'Arial', sans-serif"
+    font-size="10.5"
+    font-weight="600"
+    letter-spacing="4.5"
+    fill="#C9943A"
+    opacity="0.90"
+  >THE EVENT PLANNERS</text>
+</svg>

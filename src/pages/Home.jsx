@@ -1,0 +1,276 @@
+import { Link } from "react-router-dom";
+import SectionHeading from "../components/SectionHeading";
+import Logo from "../components/Logo";
+import EnquiryForm from "../components/EnquiryForm";
+import {
+  BUSINESS_NAME,
+  HOME_STATS, HOME_SERVICES, HOME_TESTIMONIALS, HOME_EVENT_TYPES,
+  IMAGES,
+} from "../config";
+
+export default function Home() {
+  return (
+    <>
+      {/* ── Hero ──────────────────────────────────────────────── */}
+      <section
+        className="relative min-h-[92vh] flex items-center overflow-hidden bg-forest-950"
+        aria-label="Hero"
+      >
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('${IMAGES.hero}')`, opacity: 0.18 }}
+          aria-hidden="true"
+        />
+        {/* Gradient vignette */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-forest-950/80 via-forest-950/50 to-forest-950/90"
+          aria-hidden="true"
+        />
+        <div className="absolute top-24 left-10 w-64 h-64 rounded-full bg-gold-500/5 blur-3xl pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-gold-400/5 blur-3xl pointer-events-none" aria-hidden="true" />
+
+        {/* Two-column layout */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            {/* ── LEFT — branding & tagline ─────────────────── */}
+            <div className="text-center">
+              <div className="flex justify-center mb-6">
+                <Logo variant="icon" className="w-36 h-36 sm:w-44 sm:h-44 shimmer drop-shadow-xl" />
+              </div>
+
+              <h1 className="mb-6 leading-tight">
+                <span className="block font-display font-bold" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#f9f6ee" }}>
+                  Crafting Moments{" "}
+                  <span
+                    className="italic"
+                    style={{
+                      fontFamily: "'Allura', 'Great Vibes', cursive",
+                      fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)",
+                      color: "#e8b048",
+                      textShadow: "0 2px 12px rgba(232,176,72,0.4)",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    &amp;
+                  </span>
+                </span>
+                <span className="block font-display font-bold" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#f9f6ee" }}>
+                  Creating Memories
+                </span>
+              </h1>
+
+              <div className="flex items-center gap-4 mb-6 justify-center">
+                <span className="h-px w-12 bg-gold-500/50" />
+                <span className="text-gold-500 text-sm">✦</span>
+                <span className="h-px w-12 bg-gold-500/50" />
+              </div>
+
+              <p className="text-ivory-200/70 text-base leading-relaxed mb-8 max-w-lg mx-auto">
+                From grand weddings to intimate celebrations — we plan, decorate, cater, and
+                coordinate every detail so your special day is nothing short of perfect.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  to="/contact"
+                  className="font-heading font-semibold tracking-[0.1em] uppercase text-sm px-10 py-4 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all shadow-[0_4px_24px_rgba(201,148,58,0.45)] hover:shadow-[0_6px_32px_rgba(201,148,58,0.60)] hover:-translate-y-0.5"
+                >
+                  Enquire Now
+                </Link>
+                <Link
+                  to="/services"
+                  className="font-heading font-medium tracking-[0.1em] uppercase text-sm px-10 py-4 border border-ivory-200/30 hover:border-gold-400/60 text-ivory-200/80 hover:text-gold-300 rounded-full transition-all"
+                >
+                  Our Services
+                </Link>
+              </div>
+            </div>
+
+            {/* ── RIGHT — enquiry form ───────────────────────── */}
+            <div className="w-full max-h-[80vh] overflow-y-auto rounded-2xl">
+              <EnquiryForm />
+            </div>
+
+          </div>
+        </div>
+
+        {/* Scroll chevron */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gold-500/60 animate-bounce" aria-hidden="true">
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </section>
+
+      {/* ── Stats bar ──────────────────────────────────────────── */}
+      <section className="bg-gold-500 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            {HOME_STATS.map(({ value, label }) => (
+              <div key={label}>
+                <p className="font-display text-3xl sm:text-4xl font-bold text-forest-950">{value}</p>
+                <p className="font-heading text-[0.72rem] tracking-[0.15em] uppercase text-forest-800 mt-1">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Intro / Who We Are ────────────────────────────────── */}
+      <section className="py-24 bg-ivory-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-14 items-center">
+            <div>
+              <SectionHeading
+                eyebrow="Who We Are"
+                title="Your Trusted Event Partner"
+                center={false}
+              />
+              <p className="text-forest-800/80 leading-relaxed mb-4">
+                At {BUSINESS_NAME}, we believe every event deserves to be a masterpiece.
+                With years of experience transforming venues and crafting extraordinary
+                experiences, we bring passion, precision, and creativity to every celebration.
+              </p>
+              <p className="text-forest-800/80 leading-relaxed mb-8">
+                From intimate housewarming ceremonies to lavish wedding receptions and
+                large-scale corporate events — our dedicated team handles every detail
+                so you can be fully present in your moment.
+              </p>
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 font-heading font-semibold text-sm tracking-wide text-forest-800 hover:text-gold-600 transition-colors group"
+              >
+                <span>Learn more about us</span>
+                <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-[var(--shadow-card-hover)] aspect-[4/3] bg-forest-100">
+              <img
+                src={IMAGES.intro}
+                alt="Beautiful event decoration — placeholder, replace in config"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Services highlights ────────────────────────────────── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="What We Offer"
+            title="Our Services"
+            subtitle="A complete range of event services designed to make your celebration seamless, beautiful, and unforgettable."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {HOME_SERVICES.map(({ icon, title, desc }) => (
+              <div
+                key={title}
+                className="p-7 rounded-2xl border border-ivory-200 bg-ivory-50 hover:border-gold-400/50 transition-all group"
+                style={{ boxShadow: "var(--shadow-card)" }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card-hover)"}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card)"}
+              >
+                <span className="text-3xl mb-4 block">{icon}</span>
+                <h3 className="font-display text-xl text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
+                  {title}
+                </h3>
+                <p className="text-forest-700/70 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link
+              to="/services"
+              className="font-heading font-semibold tracking-[0.1em] uppercase text-sm inline-flex items-center gap-2 px-9 py-3.5 bg-forest-800 hover:bg-forest-700 text-ivory-100 rounded-full transition-colors"
+            >
+              View All Services
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Event types ────────────────────────────────────────── */}
+      <section className="py-24 bg-forest-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Events We Love"
+            title="Every Occasion, Perfectly Planned"
+            subtitle="No event is too big or too small — we pour the same dedication into each one."
+            light
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {HOME_EVENT_TYPES.map(([icon, label]) => (
+              <div
+                key={label}
+                className="py-6 px-4 rounded-2xl bg-forest-800/50 hover:bg-gold-500/10 border border-forest-700 hover:border-gold-500/40 transition-all text-center"
+              >
+                <p className="text-3xl mb-2">{icon}</p>
+                <p className="font-heading font-medium text-xs tracking-wide text-ivory-200/80">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Testimonials ───────────────────────────────────────── */}
+      <section className="py-24 bg-ivory-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Happy Clients"
+            title="What Our Clients Say"
+            subtitle="Real stories from families and organisations who trusted us with their special day."
+          />
+          <div className="grid md:grid-cols-3 gap-7">
+            {HOME_TESTIMONIALS.map(({ name, event, quote, initials }) => (
+              <div
+                key={name}
+                className="bg-white rounded-2xl p-7 border border-ivory-200 flex flex-col"
+                style={{ boxShadow: "var(--shadow-card)" }}
+              >
+                <span className="font-display text-5xl text-gold-400/50 leading-none mb-1 select-none">"</span>
+                <p className="text-forest-800/75 text-sm leading-relaxed flex-1 italic font-display">{quote}</p>
+                <div className="flex items-center gap-3 mt-6 pt-5 border-t border-ivory-200">
+                  <div className="w-10 h-10 rounded-full bg-forest-800 text-ivory-100 flex items-center justify-center font-heading font-bold text-sm shrink-0">
+                    {initials}
+                  </div>
+                  <div>
+                    <p className="font-heading font-semibold text-forest-900 text-sm">{name}</p>
+                    <p className="text-forest-600/60 text-xs mt-0.5">{event}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA banner ─────────────────────────────────────────── */}
+      <section className="py-20 bg-forest-950 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-forest-950 via-forest-900 to-forest-950" aria-hidden="true" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-gold-500/8 blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
+        <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
+          <p className="font-heading tracking-[0.2em] text-gold-500/70 text-xs uppercase mb-4">Ready to Begin?</p>
+          <h2 className="font-display text-ivory-50 font-semibold mb-4" style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)" }}>
+            Let's Plan Your Dream Event Together
+          </h2>
+          <p className="text-ivory-200/60 mb-9 text-base">
+            Tell us about your event and we'll get back to you within 24 hours.
+          </p>
+          <Link
+            to="/contact"
+            className="font-heading font-semibold tracking-[0.12em] uppercase text-sm inline-block px-12 py-4 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all shadow-[0_4px_24px_rgba(201,148,58,0.40)] hover:shadow-[0_6px_36px_rgba(201,148,58,0.55)] hover:-translate-y-0.5"
+          >
+            Send Us an Enquiry
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
