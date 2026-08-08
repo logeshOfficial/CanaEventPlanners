@@ -145,6 +145,16 @@ button, [role="button"] {
 }
 .shimmer { animation: shimmer 3s ease-in-out infinite; }
 
+/* ── Focus highlight pulse (auto-scroll target) ─────────────── */
+@keyframes fieldPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(201,148,58,0.6); }
+  50%  { box-shadow: 0 0 0 6px rgba(201,148,58,0.2); }
+  100% { box-shadow: 0 0 0 0   rgba(201,148,58,0);   }
+}
+.field-pulse {
+  animation: fieldPulse 0.7s ease-out 2;
+}
+
 /* ── Focus ring ──────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-gold-400);
