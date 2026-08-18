@@ -1,14 +1,27 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SectionHeading from "../components/SectionHeading";
 import Logo from "../components/Logo";
-import EnquiryForm from "../components/EnquiryForm";
+import HeroSlider from "../components/HeroSlider";
+import ServiceIcon from "../components/ServiceIcon";
 import {
   BUSINESS_NAME,
   HOME_STATS, HOME_SERVICES, HOME_TESTIMONIALS, HOME_EVENT_TYPES,
-  IMAGES,
+  IMAGES, WHATSAPP_NUMBER,
 } from "../config";
 
 export default function Home() {
+  const [introIdx, setIntroIdx] = useState(0);
+  const slides = IMAGES.introSlides;
+  const interval = IMAGES.introSlideInterval ?? 3500;
+
+  useEffect(() => {
+    if (slides.length <= 1) return;
+    const timer = setInterval(() => {
+      setIntroIdx((i) => (i + 1) % slides.length);
+    }, interval);
+    return () => clearInterval(timer);
+  }, [slides.length, interval]);
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
@@ -30,12 +43,13 @@ export default function Home() {
         <div className="absolute top-24 left-10 w-64 h-64 rounded-full bg-gold-500/5 blur-3xl pointer-events-none" aria-hidden="true" />
         <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-gold-400/5 blur-3xl pointer-events-none" aria-hidden="true" />
 
-        {/* Two-column layout */}
+        {/* Two-column layout: left = branding, right = slider */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             {/* ── LEFT — branding & tagline ─────────────────── */}
-            <div className="text-center">
+            <div className="text-left">
+              {/* Logo — always centered above the headline */}
               <div className="flex justify-center mb-6">
                 <Logo variant="icon" className="w-36 h-36 sm:w-44 sm:h-44 shimmer drop-shadow-xl" />
               </div>
@@ -73,24 +87,26 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact"
-                  className="font-heading font-semibold tracking-[0.1em] uppercase text-sm px-10 py-4 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all shadow-[0_4px_24px_rgba(201,148,58,0.45)] hover:shadow-[0_6px_32px_rgba(201,148,58,0.60)] hover:-translate-y-0.5"
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi, I would like to enquire about your event management services.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-heading font-semibold tracking-[0.1em] uppercase text-sm px-10 py-4 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all shadow-[0_4px_24px_rgba(201,148,58,0.45)] hover:shadow-[0_6px_32px_rgba(201,148,58,0.60)] hover:-translate-y-0.5 text-center"
                 >
-                  Enquire Now
-                </Link>
+                  Quick Enquire
+                </a>
                 <Link
                   to="/services"
-                  className="font-heading font-medium tracking-[0.1em] uppercase text-sm px-10 py-4 border border-ivory-200/30 hover:border-gold-400/60 text-ivory-200/80 hover:text-gold-300 rounded-full transition-all"
+                  className="font-heading font-medium tracking-[0.1em] uppercase text-sm px-10 py-4 border border-ivory-200/30 hover:border-gold-400/60 text-ivory-200/80 hover:text-gold-300 rounded-full transition-all text-center"
                 >
                   Our Services
                 </Link>
               </div>
             </div>
 
-            {/* ── RIGHT — enquiry form ───────────────────────── */}
-            <div className="w-full max-h-[80vh] overflow-y-auto rounded-2xl">
-              <EnquiryForm />
+            {/* ── RIGHT — image slider ───────────────────────── */}
+            <div className="w-full h-[420px] sm:h-[500px]">
+              <HeroSlider />
             </div>
 
           </div>
@@ -148,13 +164,32 @@ export default function Home() {
                 </svg>
               </Link>
             </div>
-            <div className="rounded-2xl overflow-hidden shadow-[var(--shadow-card-hover)] aspect-[4/3] bg-forest-100">
-              <img
-                src={IMAGES.intro}
-                alt="Beautiful event decoration — placeholder, replace in config"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
+            <div className="rounded-2xl overflow-hidden shadow-[var(--shadow-card-hover)] aspect-[4/3] bg-forest-100 relative">
+              {slides.map((slide, i) => (
+                <img
+                  key={slide.src}
+                  src={slide.src}
+                  alt={slide.alt}
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                  style={{ opacity: i === introIdx ? 1 : 0 }}
+                  loading="lazy"
+                />
+              ))}
+              {/* Dot indicators */}
+              {slides.length > 1 && (
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setIntroIdx(i)}
+                      aria-label={`Show image ${i + 1}`}
+                      className={`w-1.5 h-1.5 rounded-full transition-all ${
+                        i === introIdx ? "bg-gold-400 w-4" : "bg-ivory-100/60"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -169,20 +204,47 @@ export default function Home() {
             subtitle="A complete range of event services designed to make your celebration seamless, beautiful, and unforgettable."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {HOME_SERVICES.map(({ icon, title, desc }) => (
-              <div
+            {HOME_SERVICES.map(({ icon, title, desc, galleryCategory, preview }) => (
+              <Link
                 key={title}
-                className="p-7 rounded-2xl border border-ivory-200 bg-ivory-50 hover:border-gold-400/50 transition-all group"
+                to={galleryCategory ? `/gallery?category=${galleryCategory}` : "/gallery"}
+                className="rounded-2xl border border-ivory-200 bg-ivory-50 hover:border-gold-400/50 transition-all group block overflow-hidden"
                 style={{ boxShadow: "var(--shadow-card)" }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card-hover)"}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card)"}
               >
-                <span className="text-3xl mb-4 block">{icon}</span>
-                <h3 className="font-display text-xl text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
-                  {title}
-                </h3>
-                <p className="text-forest-700/70 text-sm leading-relaxed">{desc}</p>
-              </div>
+                {/* Preview image */}
+                <div className="relative h-44 overflow-hidden bg-forest-100">
+                  {preview ? (
+                    <img
+                      src={preview}
+                      alt={`${title} sample`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-ivory-100">
+                      <ServiceIcon name={icon} size="lg" />
+                    </div>
+                  )}
+                  {/* subtle dark gradient at bottom so title area reads well */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                </div>
+
+                {/* Card body */}
+                <div className="p-6">
+                  <h3 className="font-display text-xl text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
+                    {title}
+                  </h3>
+                  <p className="text-forest-700/70 text-sm leading-relaxed mb-4">{desc}</p>
+                  <span className="inline-flex items-center gap-1.5 font-heading text-xs font-semibold tracking-wide text-gold-600 group-hover:gap-2.5 transition-all">
+                    View Gallery
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
           <div className="text-center mt-10">
@@ -206,14 +268,34 @@ export default function Home() {
             light
           />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {HOME_EVENT_TYPES.map(([icon, label]) => (
-              <div
+            {HOME_EVENT_TYPES.map(({ label, galleryCategory, image, alt }) => (
+              <Link
                 key={label}
-                className="py-6 px-4 rounded-2xl bg-forest-800/50 hover:bg-gold-500/10 border border-forest-700 hover:border-gold-500/40 transition-all text-center"
+                to={`/gallery?category=${galleryCategory}`}
+                className="group relative rounded-2xl overflow-hidden aspect-[3/4] block"
+                style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.4)" }}
               >
-                <p className="text-3xl mb-2">{icon}</p>
-                <p className="font-heading font-medium text-xs tracking-wide text-ivory-200/80">{label}</p>
-              </div>
+                {/* Image */}
+                <img
+                  src={image}
+                  alt={alt}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+                {/* Dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-forest-950/90 via-forest-950/30 to-transparent" />
+                {/* Gold shimmer on hover */}
+                <div className="absolute inset-0 bg-gold-500/0 group-hover:bg-gold-500/10 transition-all duration-300" />
+                {/* Label */}
+                <div className="absolute bottom-0 left-0 right-0 p-3 text-center">
+                  <p className="font-heading font-semibold text-[0.75rem] tracking-[0.14em] uppercase text-ivory-100 group-hover:text-gold-300 transition-colors">
+                    {label}
+                  </p>
+                  <p className="font-heading text-[0.6rem] tracking-wide text-gold-400/70 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    View Gallery →
+                  </p>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

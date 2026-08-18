@@ -2,15 +2,6 @@ import { BUSINESS_NAME, BUSINESS_SUBTITLE } from "../config";
 import logoSvg from "../assets/logo.svg";
 import logoIconSvg from "../assets/logo-icon.svg";
 
-/**
- * Logo component.
- *
- * variant="full"    — stacked crown + shield + wordmark (hero, footer)
- * variant="nav"     — icon + text inline (navbar)
- * variant="icon"    — shield only (favicon contexts, small badges)
- *
- * All sizes are configurable via the className prop.
- */
 export default function Logo({ variant = "nav", className = "" }) {
   if (variant === "full") {
     return (
@@ -34,14 +25,14 @@ export default function Logo({ variant = "nav", className = "" }) {
     );
   }
 
-  // variant === "nav" — horizontal: icon + stacked text
+  // variant === "nav" — icon + stacked text
   return (
     <span className={`inline-flex items-center gap-3 ${className}`}>
       <img
         src={logoIconSvg}
         alt=""
         aria-hidden="true"
-        className="w-11 h-11 shrink-0"
+        className="w-16 h-16 shrink-0"
         draggable={false}
       />
       <span className="flex flex-col leading-tight">

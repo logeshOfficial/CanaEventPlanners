@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import ServiceIcon from "./ServiceIcon";
 import {
   BUSINESS_ADDRESS, BUSINESS_PHONE, BUSINESS_EMAIL,
-  SOCIAL_LINKS,
+  SOCIAL_LINKS, GOOGLE_MAPS_EMBED_URL,
 } from "../config";
 
 const QUICK_LINKS = [
@@ -31,7 +32,19 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <Logo variant="full" className="w-44 mb-5 opacity-95" />
+            <div className="flex items-center gap-3 mb-5">
+              <Logo variant="icon" className="w-16 h-16 shrink-0" />
+              <div className="flex flex-col leading-tight">
+                <span className="font-heading font-bold tracking-widest text-gold-400 uppercase"
+                      style={{ fontSize: "0.95rem", letterSpacing: "0.12em" }}>
+                  Cana Dream Events
+                </span>
+                <span className="font-heading font-light tracking-[0.2em] text-gold-500/70 uppercase"
+                      style={{ fontSize: "0.62rem" }}>
+                  The Event Planners
+                </span>
+              </div>
+            </div>
             <p className="text-ivory-300/70 text-sm leading-relaxed">
               Making your special moments unforgettable — from intimate gatherings to grand celebrations across Tamil Nadu.
             </p>
@@ -100,26 +113,57 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex gap-3 text-ivory-300/70">
-                <span className="shrink-0 mt-0.5">📍</span>
+                <ServiceIcon name="address" size="sm" className="shrink-0 mt-0.5 bg-forest-800 border-forest-700 text-gold-400" />
                 <span>{BUSINESS_ADDRESS}</span>
               </li>
               <li>
                 <a href={`tel:${BUSINESS_PHONE.replace(/\s/g, "")}`}
                    className="flex gap-3 text-ivory-300/70 hover:text-gold-400 transition-colors">
-                  <span className="shrink-0">📞</span>
+                  <ServiceIcon name="phone" size="sm" className="shrink-0 bg-forest-800 border-forest-700 text-gold-400" />
                   <span>{BUSINESS_PHONE}</span>
                 </a>
               </li>
               <li>
                 <a href={`mailto:${BUSINESS_EMAIL}`}
                    className="flex gap-3 text-ivory-300/70 hover:text-gold-400 transition-colors">
-                  <span className="shrink-0">✉️</span>
+                  <ServiceIcon name="email" size="sm" className="shrink-0 bg-forest-800 border-forest-700 text-gold-400" />
                   <span className="break-all">{BUSINESS_EMAIL}</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
+
+        {/* Google Maps embed */}
+        {GOOGLE_MAPS_EMBED_URL && (
+          <div className="mb-10">
+            <h3 className="font-heading font-semibold text-[0.7rem] tracking-[0.2em] uppercase text-gold-500 mb-4 flex items-center gap-2">
+              <ServiceIcon name="address" size="sm" className="bg-forest-800 border-forest-700 text-gold-400" />
+              Find Us
+            </h3>
+            <div className="rounded-xl overflow-hidden border border-forest-800"
+                 style={{ height: "220px" }}>
+              <iframe
+                src={GOOGLE_MAPS_EMBED_URL}
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Cana Dream Events location"
+              />
+            </div>
+            <a
+              href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-2 text-xs font-heading text-gold-500/70 hover:text-gold-400 transition-colors"
+            >
+              Open in Google Maps →
+            </a>
+          </div>
+        )}
 
         {/* Bottom bar */}
         <div className="border-t border-forest-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ivory-300/50">

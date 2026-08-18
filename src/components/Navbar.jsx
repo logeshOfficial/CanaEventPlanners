@@ -7,7 +7,6 @@ const NAV_LINKS = [
   { to: "/about",   label: "About"    },
   { to: "/services",label: "Services" },
   { to: "/gallery", label: "Gallery"  },
-  { to: "/contact", label: "Contact"  },
 ];
 
 export default function Navbar() {
@@ -31,7 +30,7 @@ export default function Navbar() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent opacity-60" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[80px]">
+        <div className="flex items-center justify-between h-[90px]">
 
           {/* Logo */}
           <Link to="/" onClick={() => setOpen(false)} aria-label="Cana Dream Events — Home">
@@ -61,7 +60,7 @@ export default function Navbar() {
               to="/contact"
               className="ml-3 font-heading font-semibold text-[0.78rem] tracking-[0.14em] uppercase px-5 py-2.5 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all shadow-[0_2px_12px_rgba(201,148,58,0.4)] hover:shadow-[0_4px_20px_rgba(201,148,58,0.55)]"
             >
-              Enquire Now
+              Detailed Enquiry
             </Link>
           </nav>
 
@@ -117,7 +116,7 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
             className="block mt-3 font-heading font-semibold text-[0.82rem] tracking-[0.14em] uppercase px-4 py-3 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full text-center transition-colors"
           >
-            Enquire Now
+           Detailed Enquiry
           </Link>
         </nav>
       </div>

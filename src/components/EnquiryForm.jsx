@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { WHATSAPP_NUMBER } from "../config";
 import { useToast } from "./Toast";
+import ServiceIcon from "./ServiceIcon";
 
 // ─────────────────────────────────────────────────────────────
 //  Per-day card factory
@@ -179,7 +180,7 @@ function NumInput({ id, label, value, onChange }) {
 // ─────────────────────────────────────────────────────────────
 //  Inline checkbox toggle row
 // ─────────────────────────────────────────────────────────────
-function Toggle({ checked, onChange, label, icon }) {
+function Toggle({ checked, onChange, label, iconName }) {
   return (
     <label className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer select-none transition-colors text-sm font-heading font-medium ${
       checked
@@ -188,7 +189,7 @@ function Toggle({ checked, onChange, label, icon }) {
     }`}>
       <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)}
              className="accent-forest-800 w-4 h-4 shrink-0" />
-      {icon && <span>{icon}</span>}
+      {iconName && <ServiceIcon name={iconName} size="sm" className="w-6 h-6" />}
       <span>{label}</span>
     </label>
   );
@@ -236,9 +237,9 @@ function DayCard({ day, index, total, onChange, onRemove, dateError }) {
             Services for this day
           </p>
           <div className="flex flex-wrap gap-2 mb-3">
-            <Toggle checked={day.catering}   onChange={upd("catering")}   label="Catering"    icon="🍽️" />
-            <Toggle checked={day.garlands}   onChange={upd("garlands")}   label="Garlands"    icon="💐" />
-            <Toggle checked={day.decoration} onChange={upd("decoration")} label="Decoration"  icon="🌸" />
+            <Toggle checked={day.catering}   onChange={upd("catering")}   label="Catering"    iconName="catering" />
+            <Toggle checked={day.garlands}   onChange={upd("garlands")}   label="Garlands"    iconName="garlands" />
+            <Toggle checked={day.decoration} onChange={upd("decoration")} label="Decoration"  iconName="decoration" />
           </div>
 
           {/* Catering sub-fields */}

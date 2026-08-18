@@ -1,13 +1,14 @@
 import EnquiryForm from "../components/EnquiryForm";
+import ServiceIcon from "../components/ServiceIcon";
 import {
   BUSINESS_PHONE, BUSINESS_EMAIL, BUSINESS_ADDRESS,
   BUSINESS_HOURS,
 } from "../config";
 
 const CONTACT_DETAILS = [
-  { icon: "📞", label: "Phone",   value: BUSINESS_PHONE,   href: `tel:${BUSINESS_PHONE.replace(/\s/g, "")}` },
-  { icon: "✉️", label: "Email",   value: BUSINESS_EMAIL,   href: `mailto:${BUSINESS_EMAIL}` },
-  { icon: "📍", label: "Address", value: BUSINESS_ADDRESS, href: null },
+  { icon: "phone",   label: "Phone",   value: BUSINESS_PHONE,   href: `tel:${BUSINESS_PHONE.replace(/\s/g, "")}` },
+  { icon: "email",   label: "Email",   value: BUSINESS_EMAIL,   href: `mailto:${BUSINESS_EMAIL}` },
+  { icon: "address", label: "Address", value: BUSINESS_ADDRESS, href: null },
 ];
 
 export default function Contact() {
@@ -54,9 +55,7 @@ export default function Contact() {
 
               {CONTACT_DETAILS.map(({ icon, label, value, href }) => (
                 <div key={label} className="flex gap-4 items-start">
-                  <div className="w-10 h-10 rounded-full bg-forest-800 text-ivory-100 flex items-center justify-center text-base shrink-0">
-                    {icon}
-                  </div>
+                  <ServiceIcon name={icon} size="sm" className="shrink-0 mt-0.5" />
                   <div>
                     <p className="font-heading font-semibold text-[0.65rem] tracking-[0.18em] uppercase text-forest-500/70 mb-0.5">
                       {label}

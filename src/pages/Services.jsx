@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SectionHeading from "../components/SectionHeading";
+import ServiceIcon from "../components/ServiceIcon";
 import { ALL_SERVICES } from "../config";
 
 export default function Services() {
+  const navigate = useNavigate();
   return (
     <>
       {/* Hero */}
@@ -36,36 +38,60 @@ export default function Services() {
             subtitle="Mix and match services to build a package that's perfect for your event and budget."
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {ALL_SERVICES.map(({ icon, title, tag, desc, highlights }) => (
+            {ALL_SERVICES.map(({ icon, title, tag, desc, highlights, galleryCategory, preview }) => (
               <div
                 key={title}
-                className="relative bg-white rounded-2xl border border-ivory-200 hover:border-gold-400/50 p-7 flex flex-col transition-all group"
+                className={`relative bg-white rounded-2xl border border-ivory-200 hover:border-gold-400/50 flex flex-col transition-all group overflow-hidden ${galleryCategory ? "cursor-pointer" : ""}`}
                 style={{ boxShadow: "var(--shadow-card)" }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card-hover)"}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card)"}
+                onClick={() => galleryCategory && navigate(`/gallery?category=${galleryCategory}`)}
+                role={galleryCategory ? "button" : undefined}
+                tabIndex={galleryCategory ? 0 : undefined}
+                onKeyDown={(e) => galleryCategory && e.key === "Enter" && navigate(`/gallery?category=${galleryCategory}`)}
+                aria-label={galleryCategory ? `${title} — view gallery` : title}
               >
-                {tag && (
-                  <span className={`absolute top-4 right-4 font-heading text-[0.62rem] font-bold tracking-[0.1em] uppercase px-2.5 py-1 rounded-full ${
-                    tag === "Most Popular"
-                      ? "bg-gold-500 text-forest-950"
-                      : "bg-forest-100 text-forest-600"
-                  }`}>
-                    {tag}
-                  </span>
-                )}
-                <span className="text-3xl mb-4 block">{icon}</span>
-                <h3 className="font-display text-xl text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
-                  {title}
-                </h3>
-                <p className="text-forest-700/70 text-sm leading-relaxed mb-5 flex-1">{desc}</p>
-                <ul className="space-y-1.5 mt-auto">
-                  {highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2 text-xs text-forest-600/70">
-                      <span className="text-gold-500 mt-0.5 shrink-0">✓</span>
-                      {h}
-                    </li>
-                  ))}
-                </ul>
+                {/* Preview image */}
+                <div className="relative h-40 overflow-hidden bg-forest-100 shrink-0">
+                  {preview ? (
+                    <img
+                      src={preview}
+                      alt={`${title} sample`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-ivory-100">
+                      <ServiceIcon name={icon} size="lg" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                 
+                </div>
+
+                {/* Card body */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-xl text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
+                    {title}
+                  </h3>
+                  <p className="text-forest-700/70 text-sm leading-relaxed mb-5 flex-1">{desc}</p>
+                  <ul className="space-y-1.5 mt-auto">
+                    {highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2 text-xs text-forest-600/70">
+                        <span className="text-gold-500 mt-0.5 shrink-0">✓</span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                  {galleryCategory && (
+                    <span className="inline-flex items-center gap-1.5 font-heading text-xs font-semibold tracking-wide text-gold-600 mt-5 group-hover:gap-2.5 transition-all">
+                      View Gallery
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
           </div>

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import SectionHeading from "../components/SectionHeading";
+import ServiceIcon from "../components/ServiceIcon";
 import { BUSINESS_NAME, ESTABLISHED_YEAR, ABOUT_VALUES, ABOUT_TEAM, IMAGES } from "../config";
 
 export default function About() {
@@ -86,7 +86,9 @@ export default function About() {
                 className="p-7 rounded-2xl border border-ivory-200 bg-ivory-50 hover:border-gold-400/50 transition-all text-center group"
                 style={{ boxShadow: "var(--shadow-card)" }}
               >
-                <span className="text-4xl mb-4 block">{icon}</span>
+                <div className="flex justify-center mb-4">
+                  <ServiceIcon name={icon} size="lg" />
+                </div>
                 <h3 className="font-display text-lg text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
                   {title}
                 </h3>
@@ -114,31 +116,12 @@ export default function About() {
                 </div>
                 <p className="font-heading font-semibold text-forest-900 text-sm">{name}</p>
                 <p className="text-forest-600/60 text-xs mt-0.5">{role}</p>
-                <p className="text-xs text-gold-600/70 mt-1 italic">← Replace with real name & photo</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-forest-950 text-center">
-        <div className="max-w-2xl mx-auto px-4">
-          <h2 className="font-display text-ivory-50 font-semibold mb-4"
-              style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)" }}>
-            Let's Plan Something Beautiful Together
-          </h2>
-          <p className="text-ivory-200/60 mb-8">
-            Reach out to us and we'll tailor a package to suit your vision and budget.
-          </p>
-          <Link
-            to="/contact"
-            className="font-heading font-semibold tracking-[0.1em] uppercase text-sm inline-block px-10 py-4 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all"
-          >
-            Get in Touch
-          </Link>
-        </div>
-      </section>
     </>
   );
 }

@@ -24,7 +24,7 @@ export const WHATSAPP_NUMBER = "919199999XXXXX"; // ← Replace with real number
 ```
 
 Use the format: country code + number, digits only, no `+` or spaces.  
-Example for `+91 98765 43210`: `"919876543210"`
+Example for `+91 99942 88812`: `"+91 99942 88812"`
 
 ### 2. Business Details (`src/config.js`)
 
