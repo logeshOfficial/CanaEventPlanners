@@ -1,81 +1,126 @@
 import { useState, useEffect, useCallback } from "react";
 import { HERO_SLIDES, HERO_SLIDE_INTERVAL } from "../config";
+import logoIconSvg from "../assets/logo-icon.svg";
 
 /**
- * HeroSlider — auto-scrolling image carousel for the hero section.
- * Images, interval, and alt text are all configured in config.js.
+ * HeroSlider
+ *   Slide 0   = branded theme-colour panel (logo + headline only, no divider/para/buttons)
+ *   Slides 1+ = HERO_SLIDES event photos, object-cover, no cropping
  */
 export default function HeroSlider() {
-  const [current, setCurrent] = useState(0);
+  const total = HERO_SLIDES.length + 1; // +1 for branded slide
+  const [current,   setCurrent]   = useState(0);
   const [animating, setAnimating] = useState(false);
-  const total = HERO_SLIDES.length;
 
   const goTo = useCallback((index) => {
+    if (animating) return;
     setAnimating(true);
-    setTimeout(() => {
-      setCurrent(index);
-      setAnimating(false);
-    }, 400);
-  }, []);
+    setTimeout(() => { setCurrent(index); setAnimating(false); }, 500);
+  }, [animating]);
 
-  const next = useCallback(() => {
-    goTo((current + 1) % total);
-  }, [current, total, goTo]);
+  const next = useCallback(() => goTo((current + 1) % total), [current, total, goTo]);
+  const prev = useCallback(() => goTo((current - 1 + total) % total), [current, total, goTo]);
 
-  const prev = useCallback(() => {
-    goTo((current - 1 + total) % total);
-  }, [current, total, goTo]);
-
-  // Auto-advance
   useEffect(() => {
     const timer = setInterval(next, HERO_SLIDE_INTERVAL);
     return () => clearInterval(timer);
   }, [next]);
 
   return (
-    <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl"
-         style={{ minHeight: "420px" }}>
+    <div className="relative w-full h-full overflow-hidden" aria-label="Hero carousel">
 
-      {/* Images */}
-      {HERO_SLIDES.map((slide, i) => (
+      {/* ── Slide 0 — Branded panel ─────────────────────────── */}
+      <div
+        className="absolute inset-0 transition-opacity duration-700 flex flex-col items-center justify-center px-6"
+        style={{
+          opacity:    current === 0 && !animating ? 1 : 0,
+          zIndex:     current === 0 ? 1 : 0,
+          background: "linear-gradient(160deg, #0a2d20 0%, #0d3b2a 50%, #0a2d20 100%)",
+        }}
+        aria-hidden={current !== 0}
+      >
+        {/* Gold radial glow */}
         <div
-          key={slide.src}
-          className="absolute inset-0 transition-opacity duration-700"
-          style={{ opacity: i === current && !animating ? 1 : 0, zIndex: i === current ? 1 : 0 }}
-          aria-hidden={i !== current}
-        >
-          <img
-            src={slide.src}
-            alt={slide.alt}
-            className="w-full h-full object-cover"
-            loading={i === 0 ? "eager" : "lazy"}
-          />
-          {/* Dark gradient overlay for readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-forest-950/60 via-transparent to-transparent" />
-        </div>
-      ))}
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,148,58,0.10) 0%, transparent 70%)" }}
+          aria-hidden="true"
+        />
+        {/* Logo */}
+        <img
+          src={logoIconSvg}
+          alt="Cana Dream Events"
+          className="relative z-10 w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 drop-shadow-2xl mb-5 shimmer"
+          draggable={false}
+        />
+        {/* Headline only */}
+        <h1 className="relative z-10 text-center leading-tight">
+          <span
+            className="block font-display font-bold text-ivory-50"
+            style={{ fontSize: "clamp(1.8rem, 4.5vw, 3.4rem)" }}
+          >
+            Crafting Moments
+          </span>
+          <span
+            className="block italic"
+            style={{
+              fontFamily:    "'Allura', 'Great Vibes', cursive",
+              fontSize:      "clamp(1.5rem, 3vw, 2.6rem)",
+              color:         "#e8b048",
+              textShadow:    "0 2px 20px rgba(232,176,72,0.55)",
+              letterSpacing: "0.05em",
+            }}
+          >
+            &amp; Creating Memories
+          </span>
+        </h1>
+      </div>
 
-      {/* Dot indicators */}
+      {/* ── Slides 1+ — Event photos ────────────────────────── */}
+      {HERO_SLIDES.map((slide, i) => {
+        const idx = i + 1;
+        return (
+          <div
+            key={slide.src}
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{ opacity: current === idx && !animating ? 1 : 0, zIndex: current === idx ? 1 : 0 }}
+            aria-hidden={current !== idx}
+          >
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            {/* gradient + title bottom-left */}
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute bottom-4 left-5 z-10">
+              <p className="font-display text-sm sm:text-base text-ivory-50 font-semibold drop-shadow leading-tight">
+                {slide.alt}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* ── Dot indicators ──────────────────────────────────── */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-        {HERO_SLIDES.map((_, i) => (
+        {Array.from({ length: total }).map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
             aria-label={`Go to slide ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
-              i === current
-                ? "w-6 h-2 bg-gold-400"
-                : "w-2 h-2 bg-ivory-200/50 hover:bg-ivory-200/80"
+              i === current ? "w-6 h-2 bg-gold-400" : "w-2 h-2 bg-ivory-200/40 hover:bg-ivory-200/70"
             }`}
           />
         ))}
       </div>
 
-      {/* Prev / Next arrows */}
+      {/* ── Arrows ──────────────────────────────────────────── */}
       <button
         onClick={prev}
-        aria-label="Previous image"
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-forest-950/50 hover:bg-gold-500 text-ivory-100 hover:text-forest-950 flex items-center justify-center transition-all"
+        aria-label="Previous slide"
+        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-forest-950/50 hover:bg-gold-500 text-ivory-100 hover:text-forest-950 flex items-center justify-center transition-all"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -83,16 +128,13 @@ export default function HeroSlider() {
       </button>
       <button
         onClick={next}
-        aria-label="Next image"
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-forest-950/50 hover:bg-gold-500 text-ivory-100 hover:text-forest-950 flex items-center justify-center transition-all"
+        aria-label="Next slide"
+        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-forest-950/50 hover:bg-gold-500 text-ivory-100 hover:text-forest-950 flex items-center justify-center transition-all"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </button>
-
-      {/* Placeholder label */}
-      
     </div>
   );
 }

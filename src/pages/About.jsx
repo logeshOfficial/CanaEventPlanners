@@ -33,15 +33,23 @@ export default function About() {
       <section className="py-24 bg-ivory-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-14 items-center">
-            {/* PLACEHOLDER IMAGE — replace src via IMAGES.aboutTeam in config.js */}
-            <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-forest-100"
+            {/* About team image with title overlay */}
+            <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-forest-100 relative"
                  style={{ boxShadow: "var(--shadow-card-hover)" }}>
               <img
                 src={IMAGES.aboutTeam}
-                alt="Event planning team — placeholder, replace in config"
+                alt="Event planning team"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
+              {/* gradient for text legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-forest-950/10 to-transparent" />
+              {/* Title bottom-left */}
+              <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
+                <p className="font-display text-base sm:text-lg text-ivory-50 font-semibold leading-tight drop-shadow">
+                  Our Team at Work
+                </p>
+              </div>
             </div>
 
             <div>

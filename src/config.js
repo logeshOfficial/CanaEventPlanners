@@ -49,7 +49,7 @@ export const IMAGES = {
       alt: "Beautiful wedding ceremony",
     },
     {
-      src: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=800&q=80",
+      src: "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=800&q=80",
       alt: "Birthday celebration setup",
     },
     {
@@ -75,7 +75,7 @@ export const IMAGES = {
       accent: "#c9943a",
     },
     {
-      src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1600&q=80",
+      src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
       category: "Birthday",
       title: "Birthdays",
       tagline: "Every age deserves a celebration worth remembering.",
@@ -109,8 +109,8 @@ export const IMAGES = {
   gallery: [
     { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80", alt: "Wedding ceremony decoration", category: "Wedding" },
     { src: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80", alt: "Reception stage decoration",  category: "Wedding" },
-    { src: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=800&q=80", alt: "Birthday party decoration",   category: "Birthday" },
-    { src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80", alt: "Balloon decoration",          category: "Birthday" },
+    { src: "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=800&q=80", alt: "Birthday party decoration",   category: "Birthday" },
+    { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80", alt: "Balloon decoration",          category: "Birthday" },
     { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80", alt: "Corporate event setup",       category: "Corporate" },
     { src: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800&q=80", alt: "Corporate conference",        category: "Corporate" },
     { src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80", alt: "Catering spread",             category: "Catering" },
@@ -127,20 +127,24 @@ export const IMAGES = {
 // Put photos in /public/images/ and reference as "/images/photo.jpg"
 export const HERO_SLIDES = [
   {
-    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=900&q=80",
-    alt: "Wedding decoration — placeholder",
+    // Wide wedding banquet hall — long decorated dining tables
+    src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1600&h=700&fit=crop&crop=center&q=85",
+    alt: "Elegant wedding banquet hall",
   },
   {
-    src: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=900&q=80",
-    alt: "Reception stage — placeholder",
+    // Outdoor wedding ceremony — chairs lined up, floral arch
+    src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1600&h=700&fit=crop&crop=center&q=85",
+    alt: "Wedding ceremony setup",
   },
   {
-    src: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=900&q=80",
-    alt: "Birthday celebration — placeholder",
+    // Birthday celebration — colourful party table
+    src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1600&h=700&fit=crop&crop=center&q=85",
+    alt: "Birthday party decoration",
   },
   {
-    src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=900&q=80",
-    alt: "Event decoration — placeholder",
+    // Corporate / gala event — wide stage with audience
+    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=700&fit=crop&crop=center&q=85",
+    alt: "Corporate gala event",
   },
 ];
 
@@ -194,8 +198,7 @@ export const HOME_EVENT_TYPES = [
   {
     label: "Birthdays",
     galleryCategory: "Birthday",
-    // Balloon & cake birthday decoration
-    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
     alt: "Birthday celebration with balloons",
   },
   {

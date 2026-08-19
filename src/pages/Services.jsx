@@ -51,7 +51,7 @@ export default function Services() {
                 onKeyDown={(e) => galleryCategory && e.key === "Enter" && navigate(`/gallery?category=${galleryCategory}`)}
                 aria-label={galleryCategory ? `${title} — view gallery` : title}
               >
-                {/* Preview image */}
+                {/* Preview image — title & tag overlaid bottom-left */}
                 <div className="relative h-40 overflow-hidden bg-forest-100 shrink-0">
                   {preview ? (
                     <img
@@ -65,15 +65,28 @@ export default function Services() {
                       <ServiceIcon name={icon} size="lg" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                 
+                  {/* Gradient for text legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/20 to-transparent" />
+                  {/* Tag badge — top right */}
+                  {tag && (
+                    <span className={`absolute top-3 right-3 font-heading text-[0.62rem] font-bold tracking-[0.1em] uppercase px-2.5 py-1 rounded-full ${
+                      tag === "Most Popular"
+                        ? "bg-gold-500 text-forest-950"
+                        : "bg-forest-900/80 text-ivory-100"
+                    }`}>
+                      {tag}
+                    </span>
+                  )}
+                  {/* Title — bottom left */}
+                  <div className="absolute bottom-0 left-0 right-0 px-4 py-3">
+                    <h3 className="font-display text-base text-ivory-50 font-semibold leading-tight group-hover:text-gold-300 transition-colors drop-shadow">
+                      {title}
+                    </h3>
+                  </div>
                 </div>
 
-                {/* Card body */}
+                {/* Card body — desc + highlights + View Gallery, no title */}
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display text-xl text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
-                    {title}
-                  </h3>
                   <p className="text-forest-700/70 text-sm leading-relaxed mb-5 flex-1">{desc}</p>
                   <ul className="space-y-1.5 mt-auto">
                     {highlights.map((h) => (

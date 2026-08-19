@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SectionHeading from "../components/SectionHeading";
-import Logo from "../components/Logo";
 import HeroSlider from "../components/HeroSlider";
 import ServiceIcon from "../components/ServiceIcon";
 import {
@@ -25,98 +24,46 @@ export default function Home() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section
-        className="relative min-h-[92vh] flex items-center overflow-hidden bg-forest-950"
-        aria-label="Hero"
-      >
-        {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('${IMAGES.hero}')`, opacity: 0.18 }}
-          aria-hidden="true"
-        />
-        {/* Gradient vignette */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-forest-950/80 via-forest-950/50 to-forest-950/90"
-          aria-hidden="true"
-        />
-        <div className="absolute top-24 left-10 w-64 h-64 rounded-full bg-gold-500/5 blur-3xl pointer-events-none" aria-hidden="true" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-gold-400/5 blur-3xl pointer-events-none" aria-hidden="true" />
+      <section className="bg-forest-950" aria-label="Hero">
 
-        {/* Two-column layout: left = branding, right = slider */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-            {/* ── LEFT — branding & tagline ─────────────────── */}
-            <div className="text-left">
-              {/* Logo — always centered above the headline */}
-              <div className="flex justify-center mb-6">
-                <Logo variant="icon" className="w-36 h-36 sm:w-44 sm:h-44 shimmer drop-shadow-xl" />
-              </div>
-
-              <h1 className="mb-6 leading-tight">
-                <span className="block font-display font-bold" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#f9f6ee" }}>
-                  Crafting Moments{" "}
-                  <span
-                    className="italic"
-                    style={{
-                      fontFamily: "'Allura', 'Great Vibes', cursive",
-                      fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)",
-                      color: "#e8b048",
-                      textShadow: "0 2px 12px rgba(232,176,72,0.4)",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    &amp;
-                  </span>
-                </span>
-                <span className="block font-display font-bold" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#f9f6ee" }}>
-                  Creating Memories
-                </span>
-              </h1>
-
-              <div className="flex items-center gap-4 mb-6 justify-center">
-                <span className="h-px w-12 bg-gold-500/50" />
-                <span className="text-gold-500 text-sm">✦</span>
-                <span className="h-px w-12 bg-gold-500/50" />
-              </div>
-
-              <p className="text-ivory-200/70 text-base leading-relaxed mb-8 max-w-lg mx-auto">
-                From grand weddings to intimate celebrations — we plan, decorate, cater, and
-                coordinate every detail so your special day is nothing short of perfect.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi, I would like to enquire about your event management services.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-heading font-semibold tracking-[0.1em] uppercase text-sm px-10 py-4 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all shadow-[0_4px_24px_rgba(201,148,58,0.45)] hover:shadow-[0_6px_32px_rgba(201,148,58,0.60)] hover:-translate-y-0.5 text-center"
-                >
-                  Quick Enquire
-                </a>
-                <Link
-                  to="/services"
-                  className="font-heading font-medium tracking-[0.1em] uppercase text-sm px-10 py-4 border border-ivory-200/30 hover:border-gold-400/60 text-ivory-200/80 hover:text-gold-300 rounded-full transition-all text-center"
-                >
-                  Our Services
-                </Link>
-              </div>
-            </div>
-
-            {/* ── RIGHT — image slider ───────────────────────── */}
-            <div className="w-full h-[420px] sm:h-[500px]">
-              <HeroSlider />
-            </div>
-
-          </div>
+        {/* Slider — full width, reduced height so it doesn't dominate */}
+        {/* mobile: 260px  tablet: 420px  desktop: 520px              */}
+        <div className="w-full h-[260px] sm:h-[420px] lg:h-[520px]">
+          <HeroSlider />
         </div>
 
-        {/* Scroll chevron */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gold-500/60 animate-bounce" aria-hidden="true">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+        {/* ── Content strip — below the slider ─────────────── */}
+        <div className="bg-forest-950 pt-7 pb-10 px-4 flex flex-col items-center text-center">
+          {/* Divider */}
+          <div className="flex items-center gap-3 mb-5">
+            <span className="h-px w-12 sm:w-20 bg-gold-500/50" />
+            <span className="text-gold-400 text-base">✦</span>
+            <span className="h-px w-12 sm:w-20 bg-gold-500/50" />
+          </div>
+
+          {/* Tagline */}
+          <p className="text-ivory-200/75 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
+            From grand weddings to intimate celebrations — we plan, decorate, cater,
+            and coordinate every detail so your special day is nothing short of perfect.
+          </p>
+
+          {/* CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi, I would like to enquire about your event management services.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-heading font-semibold tracking-[0.1em] uppercase text-sm px-9 py-3.5 bg-gold-500 hover:bg-gold-400 text-forest-950 rounded-full transition-all shadow-[0_4px_24px_rgba(201,148,58,0.45)] hover:shadow-[0_6px_32px_rgba(201,148,58,0.60)] hover:-translate-y-0.5 whitespace-nowrap"
+            >
+              Quick Enquire
+            </a>
+            <Link
+              to="/services"
+              className="font-heading font-medium tracking-[0.1em] uppercase text-sm px-9 py-3.5 border border-ivory-200/35 hover:border-gold-400/60 text-ivory-200/80 hover:text-gold-300 rounded-full transition-all whitespace-nowrap"
+            >
+              Our Services
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -175,9 +122,17 @@ export default function Home() {
                   loading="lazy"
                 />
               ))}
+              {/* Gradient for title legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-forest-950/10 to-transparent" />
+              {/* Title bottom-left */}
+              <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
+                <p className="font-display text-base sm:text-lg text-ivory-50 font-semibold leading-tight drop-shadow">
+                  Our Events in Action
+                </p>
+              </div>
               {/* Dot indicators */}
               {slides.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                <div className="absolute bottom-4 right-4 flex gap-1.5 z-10">
                   {slides.map((_, i) => (
                     <button
                       key={i}
@@ -213,7 +168,7 @@ export default function Home() {
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card-hover)"}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card)"}
               >
-                {/* Preview image */}
+                {/* Preview image — title overlaid bottom-left */}
                 <div className="relative h-44 overflow-hidden bg-forest-100">
                   {preview ? (
                     <img
@@ -227,15 +182,18 @@ export default function Home() {
                       <ServiceIcon name={icon} size="lg" />
                     </div>
                   )}
-                  {/* subtle dark gradient at bottom so title area reads well */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  {/* Gradient for text legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/20 to-transparent" />
+                  {/* Title on image — bottom left */}
+                  <div className="absolute bottom-0 left-0 right-0 px-4 py-3">
+                    <h3 className="font-display text-base sm:text-lg text-ivory-50 font-semibold leading-tight group-hover:text-gold-300 transition-colors drop-shadow">
+                      {title}
+                    </h3>
+                  </div>
                 </div>
 
-                {/* Card body */}
+                {/* Card body — desc + View Gallery only */}
                 <div className="p-6">
-                  <h3 className="font-display text-xl text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
-                    {title}
-                  </h3>
                   <p className="text-forest-700/70 text-sm leading-relaxed mb-4">{desc}</p>
                   <span className="inline-flex items-center gap-1.5 font-heading text-xs font-semibold tracking-wide text-gold-600 group-hover:gap-2.5 transition-all">
                     View Gallery
