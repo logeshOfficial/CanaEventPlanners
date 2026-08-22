@@ -49,11 +49,11 @@ export default function HeroSlider() {
         <img
           src={logoIconSvg}
           alt="Cana Dream Events"
-          className="relative z-10 w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 drop-shadow-2xl mb-5 shimmer"
+          className="relative z-10 w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 drop-shadow-2xl mb-5 shimmer hero-animate"
           draggable={false}
         />
         {/* Headline only */}
-        <h1 className="relative z-10 text-center leading-tight">
+        <h1 className="relative z-10 text-center leading-tight hero-animate-delay">
           <span
             className="block font-display font-bold text-ivory-50"
             style={{ fontSize: "clamp(1.8rem, 4.5vw, 3.4rem)" }}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 
 const NAV_LINKS = [
@@ -10,19 +10,24 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
-  const [open,       setOpen]       = useState(false);
-  const [scrolled,   setScrolled]   = useState(false);
+  const [open,     setOpen]     = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
-  // Add shadow when user scrolls
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // set correct state on mount
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // On home page: no shadow until scrolled; always forest-900 green
+  const transparent = isHome && !scrolled;
+
   return (
     <header
-      className={`sticky top-0 z-50 bg-forest-900 transition-shadow ${
+      className={`sticky top-0 z-50 bg-forest-900 transition-all duration-500 ${
         scrolled ? "shadow-[0_4px_24px_rgba(0,0,0,0.35)]" : ""
       }`}
     >

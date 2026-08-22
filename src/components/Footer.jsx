@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import ServiceIcon from "./ServiceIcon";
 import {
@@ -15,12 +15,18 @@ const QUICK_LINKS = [
 ];
 
 const SERVICE_LIST = [
-  "Catering", "Decoration", "Garlands",
-  "Mandap Setup", "Photography", "Event Planning",
+  { label: "Catering",       to: "/gallery?category=Catering"    },
+  { label: "Decoration",     to: "/gallery?category=Decoration"  },
+  { label: "Garlands",       to: "/gallery?category=Wedding"     },
+  { label: "Mandap Setup",   to: "/gallery?category=Wedding"     },
+  { label: "Photography",    to: "/gallery?category=Wedding"     },
+  { label: "Event Planning", to: "/services"                     },
 ];
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { pathname } = useLocation();
+  const isAbout = pathname === "/about";
 
   return (
     <footer className="bg-forest-950 text-ivory-200">
@@ -28,7 +34,7 @@ export default function Footer() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold-500/60 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12 items-start">
 
           {/* Brand column */}
           <div>
@@ -100,8 +106,15 @@ export default function Footer() {
               Our Services
             </h3>
             <ul className="space-y-2">
-              {SERVICE_LIST.map((s) => (
-                <li key={s} className="text-ivory-300/70 text-sm">{s}</li>
+              {SERVICE_LIST.map(({ label, to }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="text-ivory-300/70 hover:text-gold-400 text-sm transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
@@ -125,24 +138,23 @@ export default function Footer() {
               </li>
               <li>
                 <a href={`mailto:${BUSINESS_EMAIL}`}
-                   className="flex gap-3 text-ivory-300/70 hover:text-gold-400 transition-colors">
+                   className="flex gap-3 items-center text-ivory-300/70 hover:text-gold-400 transition-colors min-w-0">
                   <ServiceIcon name="email" size="sm" className="shrink-0 bg-forest-800 border-forest-700 text-gold-400" />
-                  <span className="break-all">{BUSINESS_EMAIL}</span>
+                  <span className="text-xs break-all">{BUSINESS_EMAIL}</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Google Maps embed */}
-        {GOOGLE_MAPS_EMBED_URL && (
+        {/* Find Us map — only on About page */}
+        {isAbout && GOOGLE_MAPS_EMBED_URL && (
           <div className="mb-10">
             <h3 className="font-heading font-semibold text-[0.7rem] tracking-[0.2em] uppercase text-gold-500 mb-4 flex items-center gap-2">
               <ServiceIcon name="address" size="sm" className="bg-forest-800 border-forest-700 text-gold-400" />
               Find Us
             </h3>
-            <div className="rounded-xl overflow-hidden border border-forest-800"
-                 style={{ height: "220px" }}>
+            <div className="rounded-xl overflow-hidden border border-forest-800" style={{ height: "240px" }}>
               <iframe
                 src={GOOGLE_MAPS_EMBED_URL}
                 width="100%"

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import SectionHeading from "../components/SectionHeading";
 import ServiceIcon from "../components/ServiceIcon";
+import Reveal from "../components/Reveal";
 import { ALL_SERVICES } from "../config";
 
 export default function Services() {
@@ -38,10 +39,10 @@ export default function Services() {
             subtitle="Mix and match services to build a package that's perfect for your event and budget."
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {ALL_SERVICES.map(({ icon, title, tag, desc, highlights, galleryCategory, preview }) => (
-              <div
-                key={title}
-                className={`relative bg-white rounded-2xl border border-ivory-200 hover:border-gold-400/50 flex flex-col transition-all group overflow-hidden ${galleryCategory ? "cursor-pointer" : ""}`}
+            {ALL_SERVICES.map(({ icon, title, tag, desc, highlights, galleryCategory, preview }, idx) => (
+              <Reveal key={title} delay={`${(idx % 4) * 80}ms`}>
+                <div
+                className={`relative bg-white rounded-2xl border border-ivory-200 hover:border-gold-400/50 flex flex-col transition-all group overflow-hidden h-full ${galleryCategory ? "cursor-pointer" : ""}`}
                 style={{ boxShadow: "var(--shadow-card)" }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card-hover)"}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = "var(--shadow-card)"}
@@ -106,6 +107,7 @@ export default function Services() {
                   )}
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </div>

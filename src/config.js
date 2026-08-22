@@ -18,7 +18,7 @@ export const ESTABLISHED_YEAR  = 2015;
 export const WHATSAPP_NUMBER = "919994288812";
 
 export const BUSINESS_PHONE  = "+91 99942 88812";  
-export const BUSINESS_EMAIL  = "hello@canadreamevents.com"; // ← REPLACE
+export const BUSINESS_EMAIL  = "cana.dream.events@gmail.com"; // ← REPLACE
 export const BUSINESS_ADDRESS =
   "Trichy, Tamil Nadu — 620001"; // ← REPLACE
 

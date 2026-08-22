@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { IMAGES } from "../config";
+import Reveal from "../components/Reveal";
 
 // Derive filter categories from gallery data
 const ALL_CATEGORIES = ["All", ...Array.from(new Set(IMAGES.gallery.map((i) => i.category)))];
@@ -218,28 +219,29 @@ export default function Gallery() {
           ) : (
             <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4">
               {filtered.map((img, idx) => (
-                <div
-                  key={`${img.src}-${idx}`}
-                  className="break-inside-avoid rounded-xl overflow-hidden cursor-zoom-in group"
-                  style={{ boxShadow: "var(--shadow-card)" }}
-                  onClick={() => setLightbox(img)}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`View: ${img.alt}`}
-                  onKeyDown={(e) => e.key === "Enter" && setLightbox(img)}
-                >
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      className="w-full block object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <span className="absolute bottom-2 left-2 font-heading text-[0.6rem] tracking-[0.1em] uppercase px-2 py-0.5 bg-forest-950/70 text-ivory-200 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                      {img.category}
-                    </span>
+                <Reveal key={`${img.src}-${idx}`} delay={`${(idx % 8) * 50}ms`} threshold={0.05}>
+                  <div
+                    className="break-inside-avoid rounded-xl overflow-hidden cursor-zoom-in group"
+                    style={{ boxShadow: "var(--shadow-card)" }}
+                    onClick={() => setLightbox(img)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View: ${img.alt}`}
+                    onKeyDown={(e) => e.key === "Enter" && setLightbox(img)}
+                  >
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full block object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <span className="absolute bottom-2 left-2 font-heading text-[0.6rem] tracking-[0.1em] uppercase px-2 py-0.5 bg-forest-950/70 text-ivory-200 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                        {img.category}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           )}
@@ -248,7 +250,7 @@ export default function Gallery() {
 
       {/* ── CTA strip ──────────────────────────────────────── */}
       <section className="py-14 bg-gold-500 text-center">
-        <div className="max-w-xl mx-auto px-4">
+        <Reveal className="max-w-xl mx-auto px-4">
           <h2 className="font-display text-forest-950 font-semibold text-2xl sm:text-3xl mb-3">
             Want an Event That Ends Up in Our Gallery?
           </h2>
@@ -261,7 +263,7 @@ export default function Gallery() {
           >
             Book Us Now
           </Link>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── Lightbox ───────────────────────────────────────── */}

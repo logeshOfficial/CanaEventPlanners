@@ -1,5 +1,6 @@
 import SectionHeading from "../components/SectionHeading";
 import ServiceIcon from "../components/ServiceIcon";
+import Reveal from "../components/Reveal";
 import { BUSINESS_NAME, ESTABLISHED_YEAR, ABOUT_VALUES, ABOUT_TEAM, IMAGES } from "../config";
 
 export default function About() {
@@ -33,31 +34,18 @@ export default function About() {
       <section className="py-24 bg-ivory-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-14 items-center">
-            {/* About team image with title overlay */}
-            <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-forest-100 relative"
-                 style={{ boxShadow: "var(--shadow-card-hover)" }}>
-              <img
-                src={IMAGES.aboutTeam}
-                alt="Event planning team"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              {/* gradient for text legibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-forest-950/10 to-transparent" />
-              {/* Title bottom-left */}
-              <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
-                <p className="font-display text-base sm:text-lg text-ivory-50 font-semibold leading-tight drop-shadow">
-                  Our Team at Work
-                </p>
+            <Reveal direction="left">
+              <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-forest-100 relative"
+                   style={{ boxShadow: "var(--shadow-card-hover)" }}>
+                <img src={IMAGES.aboutTeam} alt="Event planning team" className="w-full h-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-forest-950/10 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 px-5 py-4">
+                  <p className="font-display text-base sm:text-lg text-ivory-50 font-semibold leading-tight drop-shadow">Our Team at Work</p>
+                </div>
               </div>
-            </div>
-
-            <div>
-              <SectionHeading
-                eyebrow={`Est. ${ESTABLISHED_YEAR}`}
-                title="How We Started"
-                center={false}
-              />
+            </Reveal>
+            <Reveal direction="right">
+              <SectionHeading eyebrow={`Est. ${ESTABLISHED_YEAR}`} title="How We Started" center={false} />
               <p className="text-forest-800/80 leading-relaxed mb-4">
                 {BUSINESS_NAME} was born from a simple belief: every family deserves a
                 celebration that feels magical, not stressful. Founded in {ESTABLISHED_YEAR}
@@ -74,7 +62,7 @@ export default function About() {
                 in catering, décor, photography, logistics, and event coordination —
                 all under one roof, so you have a single point of contact for everything.
               </p>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -82,26 +70,18 @@ export default function About() {
       {/* Why choose us */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Why Choose Us"
-            title="What Sets Us Apart"
-            subtitle="We don't just manage events — we create experiences your guests will remember for years."
-          />
+          <Reveal>
+            <SectionHeading eyebrow="Why Choose Us" title="What Sets Us Apart" subtitle="We don't just manage events — we create experiences your guests will remember for years." />
+          </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ABOUT_VALUES.map(({ icon, title, desc }) => (
-              <div
-                key={title}
-                className="p-7 rounded-2xl border border-ivory-200 bg-ivory-50 hover:border-gold-400/50 transition-all text-center group"
-                style={{ boxShadow: "var(--shadow-card)" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <ServiceIcon name={icon} size="lg" />
+            {ABOUT_VALUES.map(({ icon, title, desc }, idx) => (
+              <Reveal key={title} delay={`${idx * 80}ms`}>
+                <div className="p-7 rounded-2xl border border-ivory-200 bg-ivory-50 hover:border-gold-400/50 transition-all text-center group h-full" style={{ boxShadow: "var(--shadow-card)" }}>
+                  <div className="flex justify-center mb-4"><ServiceIcon name={icon} size="lg" /></div>
+                  <h3 className="font-display text-lg text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">{title}</h3>
+                  <p className="text-forest-700/70 text-sm leading-relaxed">{desc}</p>
                 </div>
-                <h3 className="font-display text-lg text-forest-900 font-semibold mb-2 group-hover:text-gold-600 transition-colors">
-                  {title}
-                </h3>
-                <p className="text-forest-700/70 text-sm leading-relaxed">{desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -110,21 +90,18 @@ export default function About() {
       {/* Meet the team */}
       <section className="py-24 bg-ivory-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Our People"
-            title="Meet the Team"
-            subtitle="Passionate professionals who treat your event as if it were their own."
-          />
+          <Reveal>
+            <SectionHeading eyebrow="Our People" title="Meet the Team" subtitle="Passionate professionals who treat your event as if it were their own." />
+          </Reveal>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {ABOUT_TEAM.map(({ name, role, initials }, i) => (
-              <div key={`${name}-${i}`} className="text-center">
-                {/* PLACEHOLDER — replace with real team photo (img tag + src) */}
-                <div className="w-24 h-24 rounded-full bg-forest-800 text-ivory-100 flex items-center justify-center font-display text-2xl font-bold mx-auto mb-3 shadow-md">
-                  {initials}
+              <Reveal key={`${name}-${i}`} delay={`${i * 80}ms`}>
+                <div className="text-center">
+                  <div className="w-24 h-24 rounded-full bg-forest-800 text-ivory-100 flex items-center justify-center font-display text-2xl font-bold mx-auto mb-3 shadow-md">{initials}</div>
+                  <p className="font-heading font-semibold text-forest-900 text-sm">{name}</p>
+                  <p className="text-forest-600/60 text-xs mt-0.5">{role}</p>
                 </div>
-                <p className="font-heading font-semibold text-forest-900 text-sm">{name}</p>
-                <p className="text-forest-600/60 text-xs mt-0.5">{role}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
